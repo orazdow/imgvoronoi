@@ -56,8 +56,12 @@ image(img, 0, 0);
 
 function httpimg(url, cb){
     var xhr = new XMLHttpRequest();
+  //  xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    //xhr.setRequestHeader('Content-type', 'application/ecmascript');
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+
 
     xhr.onload = function()
     {
@@ -77,7 +81,13 @@ function httpimg(url, cb){
     }
 
     xhr.onerror = function(){
-    	cb(null, this.statustext);
+    	cb(null, this.status);
+    }
+
+    xhr.onreadystatechange = function(){
+    	if(this.status != 200){
+    		cb(null, this.status);
+    	}
     }
 
     xhr.send();
@@ -162,7 +172,7 @@ urlbutton.mousePressed(function(){
 //console.log(urlbox.value());
 httpimg(urlbox.value(), (data, err)=>{
 
-if(err){
+if(err != undefined){
 	console.log(err);
 }else{
 	//console.log(data);
