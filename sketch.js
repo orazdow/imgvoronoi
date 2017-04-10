@@ -56,12 +56,12 @@ image(img, 0, 0);
 
 function httpimg(url, cb){
     var xhr = new XMLHttpRequest();
-  //  xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+  //  
     //xhr.setRequestHeader('Content-type', 'application/ecmascript');
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-
+    // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.onload = function()
     {
