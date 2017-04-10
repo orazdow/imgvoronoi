@@ -60,22 +60,27 @@ function getHttpImg(url){
 httpimg(url, (data, err)=>{
 
 if(err != undefined){
-	console.log(err);
-	if(httptry < 2){ console.log('hey', httptry);
-	  httptry++;
+	//console.log(err);
+	if(httptry < 2){ 
+	  
+	  if(httptry == 0){
+	  	httptry++;
+	  window.setTimeout(()=>{
+      getHttpImg(url.replace(/http(?!s)/, 'https'));
+	  }, 20);	  	
+	}else{
 	  url = 'https://crossorigin.me/'+url;
 	  if(httptry == 2){ url = url.replace(/http(?!s)/, 'https'); }
 	  window.setTimeout(()=>{
       getHttpImg(url);
-	  }, 500);
-	 
-	 //console.log(url)
+	  }, 20);
+	  		httptry++;
+	 }
 	}else{
-		//httptry = 0;
+	  httpmsg.html('server denied request')
 	}
 }else{
 	//console.log(data);
-	//httptry = 0;
 	img = loadImage(data, ()=>{
 		img.resize(640,0);
 		resizeCanvas(img.width, img.height);
