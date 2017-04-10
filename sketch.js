@@ -60,7 +60,7 @@ function getHttpImg(url, replace){
 httpimg( replace ? url.replace(/http(?!s)/, 'https') : url, (data, err)=>{
 
 if(err != undefined){
-
+console.log(httptry);
 if(httptry === 0){
 httptry++;	
 getHttpImg(url, true);	
