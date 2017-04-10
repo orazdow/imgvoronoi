@@ -65,13 +65,13 @@ if(err != undefined){
 	  
 	  if(httptry == 0){
 	  	httptry++;
-	  window.setTimeout(()=>{
+	  window.setTimeout(()=>{ console.log('hey', httptry, url.replace(/http(?!s)/, 'https'));
       getHttpImg(url.replace(/http(?!s)/, 'https'));
 	  }, 20);	  	
 	}else{
 	  url = 'https://crossorigin.me/'+url;
 	  if(httptry == 2){ url = url.replace(/http(?!s)/, 'https'); }
-	  window.setTimeout(()=>{
+	  window.setTimeout(()=>{ console.log('hey', httptry, url);
       getHttpImg(url);
 	  }, 20);
 	  		httptry++;
