@@ -253,7 +253,7 @@ droparea.drop(function(file){
 		resizeCanvas(img.width, img.height);
 		background(0)
 		drawDots();
-	});	
+	});	droparea.style('background-color', 'transparent');
 });
 droparea.style('margin-bottom', '10px')
 
