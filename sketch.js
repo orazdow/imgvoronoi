@@ -60,8 +60,8 @@ function httpimg(url, cb){
     //xhr.setRequestHeader('Content-type', 'application/ecmascript');
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
-    // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.onload = function()
     {
@@ -74,7 +74,7 @@ function httpimg(url, cb){
     while(index < len){  
     str += String.fromCharCode.apply(null, arr.slice(index, index+chunk));
     index += chunk;
-    } 
+    // } 
     var b64=btoa(str);
     var dataURL="data:image;base64,"+b64;  
     cb(dataURL);
