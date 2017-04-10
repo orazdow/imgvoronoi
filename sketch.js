@@ -60,8 +60,8 @@ function httpimg(url, cb){
     //xhr.setRequestHeader('Content-type', 'application/ecmascript');
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
-    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.onload = function()
     {
