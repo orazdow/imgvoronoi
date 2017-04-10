@@ -1,5 +1,5 @@
 var img, webimg;
-var controls, row, urlbox, urllabel, urlbutton, requestlabel;
+var controls, row, urlbox, urllabel, urlbutton, requestlabel, droplabel, droparea;
 
 function preload() {
   img = loadImage("sdfb.jpg");
@@ -193,22 +193,16 @@ getHttpImg(urlbox.value(), function(err){
 
 	getHttpImg(urlbox.value().replace(/http(?!s)/, 'https'), function(err){
 	if(err){
-		
+		           //so wrong....
 		getHttpImg('https://crossorigin.me/'+urlbox.value(), function(err){
 				if(err){
-				getHttpImg(urlbox.value().replace(/http(?!s)/, 'https'), function(err){
-					if(err){
-
+								//:(
 					getHttpImg('https://crossorigin.me/'+urlbox.value().replace(/http(?!s)/, 'https'), function(err){
 						if(err){
 							requestlabel.html('request was denied by server:');
 						}
 					});
-
-					}
-				});
 				
-
 				}
 			});
 
