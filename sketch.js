@@ -1,6 +1,5 @@
 var img, webimg;
-var controls, row, urlbox, urllabel, urlbutton;
-var httptry = 0;
+var controls, row, urlbox, urllabel, urlbutton, requestlabel;
 
 function preload() {
   img = loadImage("sdfb.jpg");
@@ -75,8 +74,7 @@ if(err != undefined){
 
 function httpimg(url, cb){
     var xhr = new XMLHttpRequest();
-  //  
-    //xhr.setRequestHeader('Content-type', 'application/ecmascript');
+    
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
     // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
@@ -101,12 +99,6 @@ function httpimg(url, cb){
 
     xhr.onerror = function(){
     cb(null, this.status);
-    }
-
-    xhr.onreadystatechange = function(){
-    	if(this.status != 200){
-    		cb(null, this.status);
-    	}
     }
 
     xhr.send();
@@ -187,9 +179,15 @@ urlbox.style('width', '200px');
 urlbutton = createButton('get image');
 urlbutton.parent(row);
 
+row2 = createDiv('');
+row2.parent(controls);
+row2.style('width', '100%');
+
+requestlabel = createDiv('');
+requestlabel.parent(row2);
+
 urlbutton.mousePressed(function(){
-//console.log(urlbox.value());
-httptry = 0;
+requestlabel.html('');
 getHttpImg(urlbox.value(), function(err){
 	if(err){
 
@@ -201,7 +199,11 @@ getHttpImg(urlbox.value(), function(err){
 				getHttpImg(urlbox.value().replace(/http(?!s)/, 'https'), function(err){
 					if(err){
 
-					getHttpImg('https://crossorigin.me/'+urlbox.value().replace(/http(?!s)/, 'https'), function(err){});
+					getHttpImg('https://crossorigin.me/'+urlbox.value().replace(/http(?!s)/, 'https'), function(err){
+						if(err){
+							requestlabel.html('request was denied by server:');
+						}
+					});
 
 					}
 				});
