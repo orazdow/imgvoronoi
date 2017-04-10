@@ -65,9 +65,9 @@ if(err != undefined){
 	  httptry++;
 	  url = 'https://crossorigin.me/'+url;
 	  if(httptry == 1){ url = url.replace(/http(?!s)/, 'https'); }
-	//  window.setTimeout(()=>{
+	  window.setTimeout(()=>{
       getHttpImg(url);
-	//  }, 500);
+	  }, 500);
 	 
 	 //console.log(url)
 	}else{
@@ -114,7 +114,7 @@ function httpimg(url, cb){
     }
 
     xhr.onerror = function(){
-    	cb(null, this.status);
+    //	cb(null, this.status);
     }
 
     xhr.onreadystatechange = function(){
