@@ -1,5 +1,6 @@
 var img, webimg;
 var controls, row, urlbox, urllabel, urlbutton;
+var httptry = 0;
 
 function preload() {
   img = loadImage("sdfb.jpg");
@@ -21,7 +22,7 @@ frameRate(30)
 stroke(255)
 //noStroke()
 noLoop()
-var url = "https://images-na.ssl-images-amazon.com/images/I/61GX0E3wxaL._SL256_.jpg";
+//var url = "https://images-na.ssl-images-amazon.com/images/I/61GX0E3wxaL._SL256_.jpg";
 // httpGet(url, (data)=>{
 // 	if(data){
 // 	//console.log(btoa(unescape(encodeURIComponent(data))))
@@ -53,6 +54,38 @@ image(img, 0, 0);
 // });
 
  }
+
+function getHttpImg(url){
+
+httpimg(url, (data, err)=>{
+
+if(err != undefined){
+	console.log(err);
+	if(httptry < 2){ console.log('hey', httptry);
+	  httptry++;
+	  url = 'https://crossorigin.me/'+url;
+	  if(httptry == 1){ url = url.replace(/http(?!s)/, 'https'); }
+	//  window.setTimeout(()=>{
+      getHttpImg(url);
+	//  }, 500);
+	 
+	 //console.log(url)
+	}else{
+		//httptry = 0;
+	}
+}else{
+	//console.log(data);
+	//httptry = 0;
+	img = loadImage(data, ()=>{
+		img.resize(640,0);
+		resizeCanvas(img.width, img.height);
+		image(img, 0,0);
+	});
+}
+
+});
+
+}
 
 function httpimg(url, cb){
     var xhr = new XMLHttpRequest();
@@ -170,20 +203,9 @@ urlbutton.parent(row);
 
 urlbutton.mousePressed(function(){
 //console.log(urlbox.value());
-httpimg(urlbox.value(), (data, err)=>{
+httptry = 0;
+getHttpImg(urlbox.value());
 
-if(err != undefined){
-	console.log(err);
-}else{
-	//console.log(data);
-	img = loadImage(data, ()=>{
-		img.resize(640,0);
-		resizeCanvas(img.width, img.height);
-		image(img, 0,0);
-	});
-}
-
-});
 });
 
 }
