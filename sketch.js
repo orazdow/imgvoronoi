@@ -64,7 +64,7 @@ if(err != undefined){
 	if(httptry < 2){ console.log('hey', httptry);
 	  httptry++;
 	  url = 'https://crossorigin.me/'+url;
-	  if(httptry == 1){ url = url.replace(/http(?!s)/, 'https'); }
+	  if(httptry == 2){ url = url.replace(/http(?!s)/, 'https'); }
 	  window.setTimeout(()=>{
       getHttpImg(url);
 	  }, 500);
