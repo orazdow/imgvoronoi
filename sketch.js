@@ -63,15 +63,15 @@ if(err != undefined){
 console.log(httptry);
 if(httptry === 0){
 httptry++;	
-getHttpImg(url, true);	
+window.setTimeout(function(){getHttpImg(url, true);}, 100);	
 }
 if(httptry === 1){
 httptry++;	
-getHttpImg('https://crossorigin.me/'+url);	
+window.setTimeout(function(){getHttpImg('https://crossorigin.me/'+url);}, 100);	
 }
 if(httptry === 2){
 httptry++;	
-getHttpImg('https://crossorigin.me/'+url, true);	
+window.setTimeout(function(){getHttpImg('https://crossorigin.me/'+url, true);}, 100);	
 }
 }else{
 	img = loadImage(data, ()=>{
