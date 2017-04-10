@@ -55,24 +55,12 @@ image(img, 0, 0);
 
  }
 
-function getHttpImg(url, replace){
+function getHttpImg(url, cb){
 
-httpimg( replace ? url.replace(/http(?!s)/, 'https') : url, (data, err)=>{
+httpimg( url, (data, err)=>{
 
 if(err != undefined){
-console.log(httptry);
-if(httptry === 0){
-httptry++;	
-window.setTimeout(function(){getHttpImg(url, true);}, 100);	
-}
-if(httptry === 1){
-httptry++;	
-window.setTimeout(function(){getHttpImg('https://crossorigin.me/'+url);}, 100);	
-}
-if(httptry === 2){
-httptry++;	
-window.setTimeout(function(){getHttpImg('https://crossorigin.me/'+url, true);}, 100);	
-}
+     cb(true);
 }else{
 	img = loadImage(data, ()=>{
 		img.resize(640,0);
@@ -112,7 +100,7 @@ function httpimg(url, cb){
     }
 
     xhr.onerror = function(){
-    	cb(null, this.status);
+    //	cb(null, this.status);
     }
 
     xhr.onreadystatechange = function(){
@@ -202,7 +190,30 @@ urlbutton.parent(row);
 urlbutton.mousePressed(function(){
 //console.log(urlbox.value());
 httptry = 0;
-getHttpImg(urlbox.value());
+getHttpImg(urlbox.value(), function(err){
+	if(err){
+
+	getHttpImg(urlbox.value().replace(/http(?!s)/, 'https'), function(err){
+	if(err){
+		
+		getHttpImg('https://crossorigin.me/'+urlbox.value(), function(err){
+				if(err){
+				getHttpImg(urlbox.value().replace(/http(?!s)/, 'https'), function(err){
+					if(err){
+
+					getHttpImg('https://crossorigin.me/'+urlbox.value().replace(/http(?!s)/, 'https'), function(err){});
+
+					}
+				});
+				
+
+				}
+			});
+
+		   }
+		});
+	}
+});
 
 });
 
