@@ -112,7 +112,7 @@ function httpimg(url, cb){
     }
 
     xhr.onerror = function(){
-    //	cb(null, this.status);
+    	cb(null, this.status);
     }
 
     xhr.onreadystatechange = function(){
