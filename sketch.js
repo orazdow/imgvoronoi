@@ -56,7 +56,7 @@ image(img, 0, 0);
 
 function httpimg(url, cb){
     var xhr = new XMLHttpRequest();
-  //  
+     //  
     //xhr.setRequestHeader('Content-type', 'application/ecmascript');
     xhr.open('GET', url ,true);	
     xhr.responseType = 'arraybuffer';
@@ -74,7 +74,7 @@ function httpimg(url, cb){
     while(index < len){  
     str += String.fromCharCode.apply(null, arr.slice(index, index+chunk));
     index += chunk;
-    // } 
+    } 
     var b64=btoa(str);
     var dataURL="data:image;base64,"+b64;  
     cb(dataURL);
