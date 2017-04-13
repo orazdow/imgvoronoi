@@ -5,15 +5,15 @@ var wh = 700;
 var view = 0;
 var st, s1, s2, s3;
 
-var controls, row, row2, row3, urlbox, urllabel, urlbutton, requestlabel, droplabel, droparea;
-var bandslider, bandlabel, bandvallabel;
-var varslider, varlabel, varvallabel;
-var threshslider, threshlabel, threshvallabel;
-var controls1, controls2, controls3, controls4;
-var controls5, controls6, controls7, controls8, controls9, controls10;
-var nodelabel;
-var buildbutton, statuslabel;
-var viewlabel, delcheck, vorcheck, seedcheck;
+// var controls, row, row2, row3, urlbox, urllabel, urlbutton, requestlabel, droplabel, droparea;
+// var bandslider, bandlabel, bandvallabel;
+// var varslider, varlabel, varvallabel;
+// var threshslider, threshlabel, threshvallabel;
+// var controls1, controls2, controls3, controls4;
+// var controls5, controls6, controls7, controls8, controls9, controls10;
+// var nodelabel;
+// var buildbutton, statuslabel;
+// var viewlabel, delcheck, vorcheck, seedcheck;
 
 var nodes = [];
 var nodelimit = 15000;
@@ -25,6 +25,7 @@ var power = 2;
 var seednoise = false;
 // var nopt = 0;
 var img;
+var c;
 
 function preload() {
   img = loadImage("sdf.jpg");
@@ -33,7 +34,7 @@ function preload() {
 function setup(){
 img.resize(640,0);
 img.loadPixels();
-createCanvas(img.width, img.height);
+c = createCanvas(img.width, img.height);
 initElements();
 stroke(255)
 noLoop()
@@ -387,6 +388,15 @@ nodelabel = createDiv('node count:')
 nodelabel.parent(controls8);
 nodelabel.style('float', 'left');
 
+
+seedcheck = createCheckbox('seed noise');
+seedcheck.parent(controls8);
+seedcheck.style('float', 'left');
+seedcheck.style('margin-left', '7px');
+seedcheck.changed(function(){
+seednoise = !seednoise;	
+})
+
 controls9 = createDiv('');
 controls9.parent(controls);
 controls9.style('width', '100%');
@@ -407,25 +417,27 @@ statuslabel.parent(controls9);
 statuslabel.style('float', 'left');
 statuslabel.style('margin-left', '7px');
 
-controls9b = createDiv('');
-controls9b.parent(controls);
-controls9b.style('width', '100%');
-controls9b.style('clear', 'both');
-controls9b.style('padding-top', '7px');
-controls9b.style('margin-bottom', '0px')
+savebutton = createButton('save');
+savebutton.parent(controls9);
+savebutton.style('float', 'left');
+ savebutton.style('margin-left', '7px');
+savebutton.mousePressed(function(){
+ saveCanvas(c);
+});
 
-seedcheck = createCheckbox('seed noise');
-seedcheck.parent(controls9b);
-seedcheck.style('float', 'left');
-seedcheck.changed(function(){
-seednoise = !seednoise;	
-})
+
+// controls9b = createDiv('');
+// controls9b.parent(controls);
+// controls9b.style('width', '100%');
+// controls9b.style('clear', 'both');
+// controls9b.style('padding-top', '7px');
+// controls9b.style('margin-bottom', '0px')
 
 controls10 = createDiv('');
 controls10.parent(controls);
 controls10.style('width', '100%');
 controls10.style('clear', 'both');
-controls10.style('padding-top', '2px');
+controls10.style('padding-top', '7px');
 
 viewlabel = createDiv('view:');
 viewlabel.parent(controls10);
