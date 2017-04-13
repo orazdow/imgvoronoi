@@ -52,7 +52,7 @@ background(0);
 noFill();
 for(key in triangles.triangles){
 var t = triangles.triangles[key]
-setNeighbors(t)
+if(view === 1){setNeighbors(t)}
 if(!t.boundary){
 	if(view === 0 || view === 2){
 	stroke(255);
@@ -412,26 +412,20 @@ buildbutton.mousePressed(function(){
 buildfunc();
 });
 
-statuslabel = createDiv('');
-statuslabel.parent(controls9);
-statuslabel.style('float', 'left');
-statuslabel.style('margin-left', '7px');
+
 
 savebutton = createButton('save');
 savebutton.parent(controls9);
 savebutton.style('float', 'left');
- savebutton.style('margin-left', '7px');
+ savebutton.style('margin-left', '4px');
 savebutton.mousePressed(function(){
  saveCanvas(c);
 });
 
-
-// controls9b = createDiv('');
-// controls9b.parent(controls);
-// controls9b.style('width', '100%');
-// controls9b.style('clear', 'both');
-// controls9b.style('padding-top', '7px');
-// controls9b.style('margin-bottom', '0px')
+statuslabel = createDiv('');
+statuslabel.parent(controls9);
+statuslabel.style('float', 'left');
+statuslabel.style('margin-left', '6px');
 
 controls10 = createDiv('');
 controls10.parent(controls);
