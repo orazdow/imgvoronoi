@@ -100,7 +100,7 @@ function check(triA, a, b){
 }
 
 
-function isInTriangle(point, triangle){
+function isInTriangle(point, triangle){ 
 //from: http://totologic.blogspot.fr/2014/01/accurate-point-in-triangle-test.html
 var a, b, c, x, y, x1, x2, x3, y1, y2, y3;
 
@@ -122,7 +122,7 @@ return ( (0 <= a && a <= 1) && (0 <= b && b <= 1) && (0 <= c && c <= 1) );
 }
 
 
-function circumCenter(tri){
+function circumCenter(tri){ 
 // https://www.ics.uci.edu/~eppstein/junkyard/circumcenter.html
 // https://en.wikipedia.org/wiki/Circumscribed_circle
 var a = tri.a; var b = tri.b; var c = tri.c;
@@ -151,7 +151,7 @@ return t.a === s1 || t.b === s1 || t.c === s1 || t.a === s2 || t.b === s2 || t.c
 }
 
 
-function setNeighbors(t){
+function setNeighbors(t){ 
 var ta = triangles.getNeighbor(t, t.a, t.b);
 var tb = triangles.getNeighbor(t, t.b, t.c);
 var tc = triangles.getNeighbor(t, t.a, t.c);
@@ -159,9 +159,11 @@ var tc = triangles.getNeighbor(t, t.a, t.c);
 // t.neighborA = ta;
 // t.neighborB = tb;
 // t.neighborC = tc;	
-
+if(ta)
 t.vA = ta.center;
+if(tb)
 t.vB = tb.center;
+if(tc)
 t.vC = tc.center;
 }
 

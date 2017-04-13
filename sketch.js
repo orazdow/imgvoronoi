@@ -13,7 +13,7 @@ var controls1, controls2, controls3, controls4;
 var controls5, controls6, controls7, controls8, controls9, controls10;
 var nodelabel;
 var buildbutton, statuslabel;
-var viewlabel, delcheck, vorcheck;
+var viewlabel, delcheck, vorcheck, seedcheck;
 
 var nodes = [];
 var nodelimit = 15000;
@@ -22,6 +22,8 @@ var varience = 0.15;
 var thresh = 0.0005
 var inc = 1;
 var power = 2;
+var seednoise = false;
+// var nopt = 0;
 var img;
 
 function preload() {
@@ -49,7 +51,7 @@ background(0);
 noFill();
 for(key in triangles.triangles){
 var t = triangles.triangles[key]
- setNeighbors(t)
+setNeighbors(t)
 if(!t.boundary){
 	if(view === 0 || view === 2){
 	stroke(255);
@@ -71,6 +73,7 @@ if(!t.boundary){
 function drawDots(){
 	background(0);
 	stroke(255);
+	if(seednoise){randomSeed(99);}
 	doit(img, inc, inc);
 	nodelabel.html('node count: '+nodes.length);
 	if(nodes.length > nodelimit){
@@ -80,14 +83,37 @@ function drawDots(){
 	}
 }
 
-function buildDelaunay(arr){
-
+function buildDelaunay(){
 	if(nodes.length < nodelimit){
-	for (var i = 0; i < arr.length; i++) {
-		add_split(arr[i].x, arr[i].y);
+	for (var i = 0; i < nodes.length; i++) {
+		add_split(nodes[i].x, nodes[i].y);
 	}  
 	}
+}
 
+function buildRandom(arr){
+var end = arr.length-1;
+while(end >= 0){
+var index = Math.floor(Math.random()*end+1);
+var val = arr[index];
+arr[index] = arr[end]
+arr[end] = val;
+end--;
+add_split(val.x, val.y);
+}
+}
+
+function buildfunc(){
+if(nodes.length < nodelimit){	
+statuslabel.html('building...');
+window.setTimeout(function(){
+reset();
+buildDelaunay();
+background(0);
+display();	
+statuslabel.html('');
+}, 50);
+}
 }
 
 function doit(img, incx, incy){
@@ -108,9 +134,30 @@ function doit(img, incx, incy){
 	
 }
 
+function noiseOpts(i, type){
+	if(type == 0){
+	return random(varience)+band;	
+	}
+	else if(type == 1){
+	return rando(i)*varience+band;
+	}
+	else if(type == 2){
+	return randomGaussian(band, varience);	
+	}
+	// else if(type == 1){
+	// return (cos(i*i)*varience)+band;
+	// }
+}
+
+function rando(i) {
+    var x = Math.sin(i) * 10000;
+    return x - Math.floor(x);
+}
+
 function reduce(r, g, b){
 	return (r/255+g/255+b/255);
 }
+
 
 function getHttpImg(url, cb){
 
@@ -159,7 +206,7 @@ function httpimg(url, cb){
     cb(null, this.status);
     }
     xhr.onreadystatechange = function(){
-    	if(this.status === 403){
+    	if(this.status === 403 || this.status === 413 || this.status === 500){
     		requestlabel.html('request was denied by server:');
     	}
     }	
@@ -352,16 +399,7 @@ buildbutton.parent(controls9);
 buildbutton.style('float', 'left');
 // buildbutton.style('margin-left', '7px');
 buildbutton.mousePressed(function(){
-if(nodes.length < nodelimit){	
-statuslabel.html('building...');
-window.setTimeout(function(){
-reset();
-buildDelaunay(nodes);
-background(0);
-display();	
-statuslabel.html('');
-}, 50);
-}
+buildfunc();
 });
 
 statuslabel = createDiv('');
@@ -369,11 +407,25 @@ statuslabel.parent(controls9);
 statuslabel.style('float', 'left');
 statuslabel.style('margin-left', '7px');
 
+controls9b = createDiv('');
+controls9b.parent(controls);
+controls9b.style('width', '100%');
+controls9b.style('clear', 'both');
+controls9b.style('padding-top', '7px');
+controls9b.style('margin-bottom', '0px')
+
+seedcheck = createCheckbox('seed noise');
+seedcheck.parent(controls9b);
+seedcheck.style('float', 'left');
+seedcheck.changed(function(){
+seednoise = !seednoise;	
+})
+
 controls10 = createDiv('');
 controls10.parent(controls);
 controls10.style('width', '100%');
 controls10.style('clear', 'both');
-controls10.style('padding-top', '7px');
+controls10.style('padding-top', '2px');
 
 viewlabel = createDiv('view:');
 viewlabel.parent(controls10);
