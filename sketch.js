@@ -5,16 +5,6 @@ var wh = 700;
 var view = 0;
 var st, s1, s2, s3;
 
-// var controls, row, row2, row3, urlbox, urllabel, urlbutton, requestlabel, droplabel, droparea;
-// var bandslider, bandlabel, bandvallabel;
-// var varslider, varlabel, varvallabel;
-// var threshslider, threshlabel, threshvallabel;
-// var controls1, controls2, controls3, controls4;
-// var controls5, controls6, controls7, controls8, controls9, controls10;
-// var nodelabel;
-// var buildbutton, statuslabel;
-// var viewlabel, delcheck, vorcheck, seedcheck;
-
 var nodes = [];
 var nodelimit = 15000;
 var band = 1.75; 
@@ -92,17 +82,17 @@ function buildDelaunay(){
 	}
 }
 
-function buildRandom(arr){
-var end = arr.length-1;
-while(end >= 0){
-var index = Math.floor(Math.random()*end+1);
-var val = arr[index];
-arr[index] = arr[end]
-arr[end] = val;
-end--;
-add_split(val.x, val.y);
-}
-}
+// function buildRandom(arr){
+// var end = arr.length-1;
+// while(end >= 0){
+// var index = Math.floor(Math.random()*end+1);
+// var val = arr[index];
+// arr[index] = arr[end]
+// arr[end] = val;
+// end--;
+// add_split(val.x, val.y);
+// }
+// }
 
 function buildfunc(){
 if(nodes.length < nodelimit){	
@@ -135,20 +125,20 @@ function doit(img, incx, incy){
 	
 }
 
-function noiseOpts(i, type){
-	if(type == 0){
-	return random(varience)+band;	
-	}
-	else if(type == 1){
-	return rando(i)*varience+band;
-	}
-	else if(type == 2){
-	return randomGaussian(band, varience);	
-	}
-	// else if(type == 1){
-	// return (cos(i*i)*varience)+band;
-	// }
-}
+// function noiseOpts(i, type){
+// 	if(type == 0){
+// 	return random(varience)+band;	
+// 	}
+// 	else if(type == 1){
+// 	return rando(i)*varience+band;
+// 	}
+// 	else if(type == 2){
+// 	return randomGaussian(band, varience);	
+// 	}
+// 	// else if(type == 1){
+// 	// return (cos(i*i)*varience)+band;
+// 	// }
+// }
 
 function rando(i) {
     var x = Math.sin(i) * 10000;
@@ -411,7 +401,6 @@ buildbutton.style('float', 'left');
 buildbutton.mousePressed(function(){
 buildfunc();
 });
-
 
 
 savebutton = createButton('save');
