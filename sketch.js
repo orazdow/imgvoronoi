@@ -9,7 +9,7 @@ var nodes = [];
 var nodelimit = 15000;
 var band = 1.75; 
 var varience = 0.15;
-var thresh = 0.0005
+var thresh = 0.00012;
 var inc = 1;
 var power = 2;
 var seednoise = false;
@@ -353,7 +353,7 @@ threshlabel = createDiv('threshold:')
 threshlabel.parent(controls3);
 threshlabel.style('float', 'left');
 
-threshslider = createSlider(0.000001, 0.001, thresh, 0.00001);
+threshslider = createSlider(0.000001, 0.0008, thresh, 0.00001);
 threshslider.style('margin-left', '15px');
 threshslider.style('margin-right', '15px');
 threshslider.style('float', 'left');
